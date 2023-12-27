@@ -3,6 +3,12 @@
 
 import { Icons } from "@/components/shared/icons"
 import { ModeSwitch } from "@/components/shared/mode"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -174,6 +180,36 @@ export function CollapsibleDemo() {
   )
 }
 
+export function AccordionDemo() {
+  return (
+    <Accordion
+      type="single"
+      collapsible
+      className="w-full"
+    >
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Programming Language</AccordionTrigger>
+        <AccordionContent>
+          TS, JS, Markdown, Go, Dart, Java, Python, HTML, CSS, Bash
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Framework</AccordionTrigger>
+        <AccordionContent>
+          Flutter, React, Next, Nuxt, Laravel, Tailwindcss, Firebase, MongoDB,
+          Prisma, GraphQL(Learning)
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>Tools</AccordionTrigger>
+        <AccordionContent>
+          Neovim, Vitual-Studio-Code, Figma, Docker, Spline, Postman, Blender
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
 export function TypograhpyDemo() {
   return (
     <>
@@ -220,83 +256,94 @@ export function TypograhpyDemo() {
           </li>
         </ul>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          As a result, people stopped telling jokes, and the kingdom fell into a
-          gloom. But there was one person who refused to let the king's
-          foolishness get him down: a court jester named Jokester.
+          I've positioned the settings prominently because the upcoming section
+          will dive into my work, knowledge, and tools. I aim to provide readers
+          with a visually comfortable experience as they delve into these
+          aspects.
         </p>
         <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-          Jokester's Revolt
+          Learned
         </h3>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          Jokester began sneaking into the castle in the middle of the night and
-          leaving jokes all over the place: under the king's pillow, in his
-          soup, even in the royal toilet. The king was furious, but he couldn't
-          seem to stop Jokester.
+          Learning programming is a journey into problem-solving and creativity.
+          Each line of code is a brushstroke, shaping a canvas of digital
+          possibilities. It's not just about mastering syntax;
         </p>
         <div className="leading-7 [&:not(:first-child)]:mt-6">
           <ChatBubbleDemo />
         </div>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          And then, one day, the people of the kingdom discovered that the jokes
-          left by Jokester were so funny that they couldn't help but laugh. And
-          once they started laughing, they couldn't stop.
+          it's a transformative experience that hones logical thinking and
+          resilience in the ever-evolving landscape of technology.
         </p>
         <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-          The People's Rebellion
+          Skill
         </h3>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          The people of the kingdom, feeling uplifted by the laughter, started
-          to tell jokes and puns again, and soon the entire kingdom was in on
-          the joke.
+          Programming skills are the key to turning ideas into reality,
+          fostering problem-solving and innovation in the dynamic tech world.
         </p>
         <div className="my-6 w-full overflow-y-auto">
           <table className="w-full">
             <thead>
               <tr className="m-0 border-t p-0 even:bg-muted">
                 <th className="border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right">
-                  King's Treasury
+                  Type
                 </th>
                 <th className="border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right">
-                  People's happiness
+                  Tools
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr className="m-0 border-t p-0 even:bg-muted">
                 <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
-                  Empty
+                  Website
                 </td>
                 <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
-                  Overflowing
-                </td>
-              </tr>
-              <tr className="m-0 border-t p-0 even:bg-muted">
-                <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
-                  Modest
-                </td>
-                <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
-                  Satisfied
+                  React, Next, Nuxt, Laravel
                 </td>
               </tr>
               <tr className="m-0 border-t p-0 even:bg-muted">
                 <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
-                  Full
+                  Mobile
                 </td>
                 <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
-                  Ecstatic
+                  Flutter, React-native
+                </td>
+              </tr>
+              <tr className="m-0 border-t p-0 even:bg-muted">
+                <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
+                  UX/UI
+                </td>
+                <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
+                  Figma, Spline, Blender
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          The king, seeing how much happier his subjects were, realized the
-          error of his ways and repealed the joke tax. Jokester was declared a
-          hero, and the kingdom lived happily ever after.
+          These skills not only empower individuals to create functional
+          solutions but also contribute to the ever-evolving landscape of
+          technology, making a lasting impact on how we interact with the
+          digital world.
+        </p>
+        <div className="leading-7 [&:not(:first-child)]:mt-6">
+          <AccordionDemo />
+        </div>
+        <p className="leading-7 [&:not(:first-child)]:mt-6">
+          The moral of the story is: Learning knows no bounds, and a positive
+          mindset is the driving force towards success.
         </p>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          The moral of the story is: never underestimate the power of a good
-          laugh and always be careful of bad ideas.
+          Contact:{" "}
+          <a
+            href="mailto:nopnapatn@gmail.com"
+            className="font-medium text-primary underline underline-offset-4"
+          >
+            Nopnapatn@gmail.com
+          </a>
         </p>
       </div>
     </>
