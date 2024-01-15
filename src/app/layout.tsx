@@ -2,6 +2,7 @@ import Footer from "@/components/layout/footer"
 import Header from "@/components/layout/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
+import { Analytics } from "@vercel/analytics/react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
@@ -28,7 +29,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <div className={cn("min-h-screen antialiased")}>{children}</div>
+          <div className={cn("min-h-screen antialiased")}>
+            {children}
+            <Analytics />
+          </div>
           <Footer />
         </ThemeProvider>
       </body>
