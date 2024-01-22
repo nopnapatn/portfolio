@@ -218,7 +218,8 @@ export function TypograhpyDemo() {
           Nopnapat Norasri <span className=" text-xl">(Neuw)</span>
         </h1>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          Hi there! I'm a mobile and full-stack developer currently studying at{" "}
+          I'm Neuw <span className="font-bold">(He/Him),</span> seek a Mobile
+          and Full Stack developer, I'm study at{" "}
           <span className="font-bold">Kasetsart University</span>. Excited about
           creating innovative solutions in the tech world! 👋
         </p>
