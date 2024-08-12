@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
@@ -23,8 +23,8 @@ export function ModeToggle() {
           variant="outline"
           size="icon"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <Sun className="size-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute size-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
@@ -47,7 +47,7 @@ export function ModeSwitch() {
   const { setTheme, theme } = useTheme()
   return (
     <>
-      <div className="flex justify-between items-center space-x-2 w-full">
+      <div className="flex w-full items-center justify-between space-x-2">
         <Label htmlFor="appearance-mode">
           Appearance <span>(Light/Dark)</span>
         </Label>
