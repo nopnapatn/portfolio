@@ -32,7 +32,7 @@ export default function DemoPage() {
             </div>
           </PageHeaderHeading>
           <PageHeaderHeading className="md:hidden">
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-start gap-2 text-2xl">
               <Avatar className="size-8 rounded-md">
                 <AvatarImage src="https://github.com/nopnapatn.png" />
                 <AvatarFallback>NN</AvatarFallback>

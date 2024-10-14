@@ -6,38 +6,15 @@ import { useConfig } from "@/hooks/use-config"
 import { baseColors } from "@/registry/registry-base-colors"
 
 const data = [
-  {
-    revenue: 1040,
-    subscription: 240
-  },
-  {
-    revenue: 1440,
-    subscription: 300
-  },
-  {
-    revenue: 940,
-    subscription: 200
-  },
-  {
-    revenue: 820,
-    subscription: 278
-  },
-  {
-    revenue: 700,
-    subscription: 189
-  },
-  {
-    revenue: 960,
-    subscription: 239
-  },
-  {
-    revenue: 1124,
-    subscription: 278
-  },
-  {
-    revenue: 2647,
-    subscription: 189
-  }
+  { contributions: 50, visits: 100 },
+  { contributions: 37, visits: 80 },
+  { contributions: 70, visits: 120 },
+  { contributions: 26, visits: 90 },
+  { contributions: 60, visits: 110 },
+  { contributions: 42, visits: 95 },
+  { contributions: 84, visits: 130 },
+  { contributions: 54, visits: 105 },
+  { contributions: 93, visits: 140 }
 ]
 
 export function CardsStats() {
@@ -48,40 +25,38 @@ export function CardsStats() {
     (baseColor) => baseColor.name === config.theme
   )
 
-  // Calculate total revenue
-  const totalRevenue = data.reduce((sum, item) => sum + item.revenue, 0)
-
-  // Calculate revenue change percentage
-  const lastMonthRevenue = data[data.length - 2].revenue
-  const currentMonthRevenue = data[data.length - 1].revenue
-  const revenueChangePercentage =
-    ((currentMonthRevenue - lastMonthRevenue) / lastMonthRevenue) * 100
-
-  // Calculate total subscriptions
-  const totalSubscriptions = data.reduce(
-    (sum, item) => sum + item.subscription,
+  const totalContributions = data.reduce(
+    (sum, item) => sum + item.contributions,
     0
   )
 
-  // Calculate subscription change percentage
-  const lastMonthSubscriptions = data[data.length - 2].subscription
-  const currentMonthSubscriptions = data[data.length - 1].subscription
-  const subscriptionChangePercentage =
-    ((currentMonthSubscriptions - lastMonthSubscriptions) /
-      lastMonthSubscriptions) *
+  const lastMonthContributions = data[data.length - 2].contributions
+  const currentMonthContributions = data[data.length - 1].contributions
+  const contributionsChangePercentage =
+    ((currentMonthContributions - lastMonthContributions) /
+      lastMonthContributions) *
     100
+
+  const totalVisits = data.reduce((sum, item) => sum + item.visits, 0)
+
+  const lastMonthVisits = data[data.length - 2].visits
+  const currentMonthVisits = data[data.length - 1].visits
+  const visitsChangePercentage =
+    ((currentMonthVisits - lastMonthVisits) / lastMonthVisits) * 100
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-base font-normal">Total Revenue</CardTitle>
+          <CardTitle className="text-base font-normal">
+            Total Contributions
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">${totalRevenue.toFixed(2)}</div>
+          <div className="text-2xl font-bold">{totalContributions}</div>
           <p className="text-xs text-muted-foreground">
-            {revenueChangePercentage > 0 ? "+" : ""}
-            {revenueChangePercentage.toFixed(1)}% from last month
+            {contributionsChangePercentage > 0 ? "+" : ""}
+            {contributionsChangePercentage.toFixed(1)}% from last month
           </p>
           <div className="h-[80px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -97,7 +72,7 @@ export function CardsStats() {
                 <Line
                   type="monotone"
                   strokeWidth={2}
-                  dataKey="revenue"
+                  dataKey="contributions"
                   activeDot={{
                     r: 6,
                     style: { fill: "var(--theme-primary)", opacity: 0.25 }
@@ -119,19 +94,21 @@ export function CardsStats() {
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-base font-normal">Subscriptions</CardTitle>
+          <CardTitle className="text-base font-normal">
+            Website Visits
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">+{totalSubscriptions}</div>
+          <div className="text-2xl font-bold">{totalVisits}</div>
           <p className="text-xs text-muted-foreground">
-            {subscriptionChangePercentage > 0 ? "+" : ""}
-            {subscriptionChangePercentage.toFixed(1)}% from last month
+            {visitsChangePercentage > 0 ? "+" : ""}
+            {visitsChangePercentage.toFixed(1)}% from last month
           </p>
           <div className="mt-4 h-[80px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
                 <Bar
-                  dataKey="subscription"
+                  dataKey="visits"
                   style={
                     {
                       fill: "var(--theme-primary)",
