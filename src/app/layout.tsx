@@ -1,12 +1,12 @@
 import { Analytics } from "@vercel/analytics/react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 
+import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/cn"
+import { Toaster } from "@/components/ui/toaster"
+import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Nopnapat Norasri",
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -28,7 +28,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className={cn("min-h-screen antialiased")}>
+            <SiteHeader />
             {children}
+            <SiteFooter />
+            <Toaster />
             <Analytics />
           </div>
         </ThemeProvider>

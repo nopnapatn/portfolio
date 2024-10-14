@@ -8,7 +8,7 @@ const nextConfig = {
     return config
   },
   images: {
-    domains: ["github.com", "appsynth.net"]
+    domains: ["github.com"]
   }
 }
 

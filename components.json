@@ -13,9 +13,8 @@
   "aliases": {
     "app": "@/app",
     "components": "@/components",
-    "utils": "@/utils",
-    "hooks": "@/hooks",
+    "utils": "@/lib/utils",
     "styles": "@/styles",
-    "lib": "@/lib"
+    "registry": "@/registry"
   }
 }
