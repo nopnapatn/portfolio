@@ -60,15 +60,15 @@ export function CardsChat() {
     },
     {
       role: "user",
-      content: "Nice to meet you too! How’s your day going?"
+      content: "Nice to meet you too!"
     },
     {
       role: "agent",
-      content: "It’s going well, thanks! Just finished a project."
+      content: "It’s going well, thanks!."
     },
     {
       role: "user",
-      content: "That’s great! looking forward to this meeting."
+      content: "That’s great! looking forward"
     },
     {
       role: "agent",
