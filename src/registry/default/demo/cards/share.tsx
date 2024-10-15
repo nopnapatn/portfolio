@@ -48,16 +48,12 @@ export function CardsShare() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex space-x-2">
+        <div className="flex gap-2">
           <Label htmlFor="link" className="sr-only">
             Link
           </Label>
           <Input id="link" value={shareLink} readOnly />
-          <Button
-            variant="secondary"
-            className="shrink-0"
-            onClick={copyToClipboard}
-          >
+          <Button className="shrink-0" onClick={copyToClipboard}>
             {isCopied ? "Copied!" : "Copy Link"}
           </Button>
         </div>
