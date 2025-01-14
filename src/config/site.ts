@@ -1,12 +1,13 @@
+export type SiteConfig = typeof siteConfig
+
 export const siteConfig = {
   name: "NOPNAPATN",
+  href: "/",
   url: "https://nopnapatn.dev",
   description:
-    "Creative web developer crafting dynamic, user-friendly experiences with a focus on clean code and innovative solutions.",
+    "I'm a software engineer who loves to build web applications and learn new things.",
   links: {
-    twitter: "https://twitter.com/nopnapatn",
-    github: "https://github.com/nopnapatn"
+    github: "https://github.com/nopnapatn",
+    brownade: "https://brownade.com"
   }
 }
-
-export type SiteConfig = typeof siteConfig

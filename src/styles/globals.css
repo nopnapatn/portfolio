@@ -42,8 +42,11 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: #1a1c19;
+    --foreground: #e3d4c4;
+    /* FYI: This commented out line is an template from the original shadcn/tailwindcss-config */
+    /* --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%; */
 
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
