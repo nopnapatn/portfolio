@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --pale-oyster: #9d8e73;
+    --heavy-metal: #1a1c19;
+    --birch: #343124;
+    --zeus: ##25221d;
+    --bone: #e3d4c4;
+    --saddle: #4c3727;
+    --kabul: #584e3f;
+    --vanilla: #cec0a4;
+    --tobacco-brown: #755740;
+    --quincy: #61462a;
+    --fiord: #385464;
+    --clay-ash: #c4ccb4;
+  }
+}
