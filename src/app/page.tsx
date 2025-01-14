@@ -1,6 +1,5 @@
+import ArtworkCard from "@/app/_components/artwork-card"
 import Container from "@/components/layout/container"
-
-import ArtworkCard from "./_components/artwork-card"
 
 export default function Home() {
   return (
