@@ -13,6 +13,7 @@ export default function Home() {
           title="Nopnapat"
           subtitle="Norasri"
           metadata="I'm a software engineer who loves to create digital experiences that inspire transformation."
+          href="/docs/me"
         />
         <ArtworkCard
           option={4}
