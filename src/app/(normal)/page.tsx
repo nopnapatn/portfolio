@@ -1,4 +1,4 @@
-import ArtworkCard from "@/app/_components/artwork-card"
+import ArtworkCard from "@/app/(normal)/_components/artwork-card"
 import Container from "@/components/layout/container"
 
 export default function Home() {
@@ -13,7 +13,8 @@ export default function Home() {
           title="Nopnapat"
           subtitle="Norasri"
           metadata="I'm a software engineer who loves to create digital experiences that inspire transformation."
-          href="/docs/me"
+          href={""}
+          image="/images/neuw.jpg"
         />
         <ArtworkCard
           option={4}
