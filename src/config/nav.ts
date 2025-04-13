@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site"
 import { DocumentNavItem, HeaderNavItem } from "@/types/nav"
 
 interface NavConfig {
@@ -6,6 +7,11 @@ interface NavConfig {
 }
 
 export const navConfig: NavConfig = {
-  header: [],
+  header: [
+    {
+      title: siteConfig.bibliotheca.name,
+      href: siteConfig.bibliotheca.href
+    }
+  ],
   documents: []
 }

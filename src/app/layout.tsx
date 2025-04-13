@@ -2,8 +2,6 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
 
-import Footer from "@/components/layout/footer"
-import Header from "@/components/layout/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import { geistMono, geistSans } from "@/fonts"
 import { SiteProvider } from "@/hooks/use-context"
@@ -32,11 +30,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SiteProvider>
-            <Header />
-            {children}
-            <Footer />
-          </SiteProvider>
+          <SiteProvider>{children}</SiteProvider>
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>
