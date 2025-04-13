@@ -1,145 +1,266 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
-import { Button } from "@/components/ui/button"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card"
+  ViewSelector,
+  type ViewMode
+} from "@/app/bibliotheca/_components/view-selector"
+import { paths } from "@/constants/paths"
+import { formatDate } from "@/lib/format-date"
 import { cn } from "@/lib/utils"
 
-export default function DocsPage() {
+interface BlogPost {
+  id: string
+  title: string
+  slug: string
+  coverImage?: string
+  description?: string
+  date: string
+  tags?: string[]
+  content: string
+}
+
+export default function BlogPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [viewMode, setViewMode] = useState<ViewMode>("grid")
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setIsLoading(true)
+        const response = await fetch("/api/notion")
+        if (!response.ok) {
+          throw new Error("Failed to fetch posts")
+        }
+        const posts = await response.json()
+        setPosts(posts)
+      } catch (error) {
+        console.error("Error fetching posts:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchPosts()
+
+    const savedView = localStorage.getItem(
+      "bibliotheca-view-mode"
+    ) as ViewMode | null
+    if (savedView) {
+      setViewMode(savedView)
+    }
+  }, [])
+
+  const handleViewChange = (mode: ViewMode) => {
+    setViewMode(mode)
+  }
+
+  if (isLoading) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className={cn("overflow-hidden")}
+      >
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-2xl font-bold">All Posts</h1>
+          <div className="opacity-50">
+            <ViewSelector onChange={handleViewChange} defaultMode={viewMode} />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="rounded-lg border p-4">
+              <div className="aspect-video h-24 w-full animate-pulse rounded-md bg-bone" />
+              <div className="mt-4 h-4 w-3/4 animate-pulse rounded bg-bone" />
+              <div className="mt-2 h-3 w-1/2 animate-pulse rounded bg-bone" />
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    )
+  }
+
+  if (viewMode === "grid") {
+    return (
+      <div>
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-2xl font-bold">All Posts</h1>
+          <ViewSelector onChange={handleViewChange} defaultMode={viewMode} />
+        </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {posts.map((post) => (
+            <Link
+              key={post.id}
+              href={`${paths.bibliotheca}/${post.slug}`}
+              className="group"
+            >
+              <div className="overflow-hidden rounded-lg border transition-all hover:shadow-md">
+                {post.coverImage && (
+                  <div className="relative aspect-video">
+                    <Image
+                      src={post.coverImage || "/placeholder.svg"}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+                <div className="p-4">
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    {formatDate(post.date)}
+                  </p>
+                  <h2 className="mb-2 text-lg font-semibold group-hover:text-primary">
+                    {post.title}
+                  </h2>
+                  {post.description && (
+                    <p className="line-clamp-2 text-sm text-muted-foreground">
+                      {post.description}
+                    </p>
+                  )}
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (viewMode === "list") {
+    return (
+      <div>
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-2xl font-bold">All Posts</h1>
+          <ViewSelector onChange={handleViewChange} defaultMode={viewMode} />
+        </div>
+        <div className="space-y-4">
+          {posts.map((post) => (
+            <Link
+              key={post.id}
+              href={`${paths.bibliotheca}/${post.slug}`}
+              className="group"
+            >
+              <div className="flex flex-col rounded-lg border p-4 transition-all hover:bg-muted/50 sm:flex-row sm:items-center">
+                {post.coverImage && (
+                  <div className="relative mb-4 aspect-video w-full sm:mb-0 sm:mr-4 sm:w-48">
+                    <Image
+                      src={post.coverImage || "/placeholder.svg"}
+                      alt={post.title}
+                      fill
+                      className="rounded-md object-cover"
+                    />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-semibold group-hover:text-primary">
+                      {post.title}
+                    </h2>
+                    <p className="text-sm text-muted-foreground">
+                      {formatDate(post.date)}
+                    </p>
+                  </div>
+                  {post.description && (
+                    <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">
+                      {post.description}
+                    </p>
+                  )}
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className={cn("overflow-hidden")}
-    >
-      <div className="flex flex-col items-start gap-4">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl">Documentation</h1>
-        <p className="text-lg text-muted-foreground">
-          Welcome to the documentation for your project.
-        </p>
+    <div>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">All Posts</h1>
+        <ViewSelector onChange={handleViewChange} defaultMode={viewMode} />
       </div>
-
-      <div className="my-8">
-        <h2 id="getting-started" className="mb-4 text-2xl md:text-3xl">
-          Getting Started
-        </h2>
-        <p className="mb-6 text-muted-foreground">
-          Choose a section to get started with your project.
-        </p>
-        <div className="grid grid-cols-1 gap-4 pt-10 md:grid-cols-2 lg:grid-cols-3">
-          <Card>
-            <CardHeader>
-              <CardTitle>Getting Started</CardTitle>
-              <CardDescription>
-                Learn how to install and set up your project.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/docs/getting-started">
-                <Button variant="ghost" className="flex items-center gap-1">
-                  Read More <ArrowRight className="size-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Components</CardTitle>
-              <CardDescription>
-                Explore the components available in your project.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/docs/components">
-                <Button variant="ghost" className="flex items-center gap-1">
-                  Read More <ArrowRight className="size-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>API Reference</CardTitle>
-              <CardDescription>
-                Detailed API documentation for your project.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/docs/api">
-                <Button variant="ghost" className="flex items-center gap-1">
-                  Read More <ArrowRight className="size-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
+      <div className="grid grid-cols-1 gap-8">
+        {posts.map((post) => (
+          <Link
+            key={post.id}
+            href={`${paths.bibliotheca}/${post.slug}`}
+            className="group"
+          >
+            <div className="overflow-hidden rounded-lg border transition-all hover:shadow-lg">
+              <div className="flex flex-col lg:flex-row">
+                {post.coverImage && (
+                  <div className="relative aspect-video w-full lg:w-1/3">
+                    <Image
+                      src={post.coverImage || "/placeholder.svg"}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col justify-between p-6">
+                  <div>
+                    <p className="mb-2 text-sm text-muted-foreground">
+                      {formatDate(post.date)}
+                    </p>
+                    <h2 className="mb-3 text-xl font-bold group-hover:text-primary">
+                      {post.title}
+                    </h2>
+                    {post.description && (
+                      <p className="line-clamp-3 text-muted-foreground">
+                        {post.description}
+                      </p>
+                    )}
+                  </div>
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
-
-      <div className="my-8">
-        <h2 id="features" className="mb-4 text-2xl md:text-3xl">
-          Features
-        </h2>
-        <p className="mb-6 text-muted-foreground">
-          Key features of your project documentation.
-        </p>
-        <ul className="list-disc space-y-2 pl-6">
-          <li>Comprehensive API documentation</li>
-          <li>Interactive examples</li>
-          <li>Easy navigation with table of contents</li>
-          <li>Responsive design for all devices</li>
-          <li>Dark and light mode support</li>
-        </ul>
-      </div>
-
-      <div className="my-8">
-        <h2 id="resources" className="mb-4 text-2xl md:text-3xl">
-          Resources
-        </h2>
-        <p className="mb-6 text-muted-foreground">
-          Additional resources to help you get the most out of your project.
-        </p>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>GitHub Repository</CardTitle>
-              <CardDescription>
-                Access the source code and contribute to the project.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="https://github.com">
-                <Button variant="ghost" className="flex items-center gap-1">
-                  View Repository <ArrowRight className="size-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Community</CardTitle>
-              <CardDescription>
-                Join our community for support and discussions.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/community">
-                <Button variant="ghost" className="flex items-center gap-1">
-                  Join Community <ArrowRight className="size-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </motion.div>
+    </div>
   )
 }
