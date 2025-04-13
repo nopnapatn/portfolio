@@ -1,11 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 
-import TagArtWorkCard from "@/app/_components/artwork-card/tag"
+import TagArtWorkCard from "@/app/(normal)/_components/artwork-card/tag"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { siteConfig } from "@/config/site"
 
 interface OptionArtWorkCardProps {
   option: number
@@ -42,9 +40,9 @@ export default function OptionArtWorkCard({
     return (
       image && (
         <div
-          className={`relative ${option === 1 ? "h-[560px]" : "h-48"} overflow-hidden rounded-lg`}
+          className={`relative ${option === 1 ? "h-[460px]" : "h-48"} overflow-hidden rounded-lg`}
         >
-          <Image src={image} alt={title} layout="fill" objectFit="cover" />
+          <Image src={image} alt={title} fill className="object-cover" />
         </div>
       )
     )
@@ -113,12 +111,9 @@ export default function OptionArtWorkCard({
               <div>
                 <div className="flex items-center justify-between border-t-2 border-heavyMetal py-3 text-sm text-heavyMetal">
                   <span>PUBLIC DOMAIN</span>
-                  <Link
-                    href={siteConfig.links.brownade}
-                    className="cursor-pointer font-semibold hover:text-bone hover:underline"
-                  >
+                  <span className="cursor-pointer font-semibold hover:text-bone hover:underline">
                     BRWONADE.COM
-                  </Link>
+                  </span>
                 </div>
                 <div className="border-y-2 py-[3px]" />
               </div>

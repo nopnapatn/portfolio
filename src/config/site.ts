@@ -9,5 +9,19 @@ export const siteConfig = {
   links: {
     github: "https://github.com/nopnapatn",
     brownade: "https://brownade.com"
+  },
+
+  bibliotheca: {
+    name: "Bibliotheca",
+    href: "/bibliotheca",
+    description:
+      "Bibliotheca is a library of my personal blog, where I write about web development, programming, and software engineering."
+  },
+
+  brownade: {
+    name: "Brownade",
+    href: "/brownade",
+    description:
+      "Brownade is a digital experience that inspires transformation."
   }
 }
