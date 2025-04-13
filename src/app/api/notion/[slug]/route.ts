@@ -4,21 +4,17 @@ import { getPostBySlug } from "@/lib/notion"
 
 export async function GET(
   request: NextRequest,
-  context: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    // Wait for params to be resolved
-    const params = await context.params
-
-    // Make sure params and slug exist
-    if (!params || !params.slug) {
+    if (!params || !(await params).slug) {
       return NextResponse.json(
         { error: "Slug parameter is missing" },
         { status: 400 }
       )
     }
 
-    const slug = params.slug
+    const slug = (await params).slug
     // Log the slug to help with debugging
     console.log(`Fetching post with slug: ${slug}`)
 
