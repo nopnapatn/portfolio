@@ -7,6 +7,7 @@ export const siteConfig = {
   description:
     "I'm a software engineer who loves to build web applications and learn new things.",
   links: {
+    image: "https://github.com/nopnapatn.png",
     github: "https://github.com/nopnapatn",
     brownade: "https://brownade.com"
   },

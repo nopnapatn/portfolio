@@ -6,6 +6,7 @@ import { useState } from "react"
 
 import { navConfig } from "@/config/nav"
 import { siteConfig } from "@/config/site"
+import { paths } from "@/constants/paths"
 
 const linkStyles =
   "rounded-full border border-bone p-[13px] px-10 text-bone font-medium text-sm transition-colors hover:bg-bone hover:text-heavyMetal"
@@ -38,7 +39,10 @@ export default function Header() {
               )}
             </div>
           </div>
-          <Link href="/contact" className={`${linkStyles} hidden md:block`}>
+          <Link
+            href={paths.contact}
+            className={`${linkStyles} hidden md:block`}
+          >
             Contact&nbsp;now
           </Link>
           <div
@@ -70,7 +74,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/contact"
+              href={paths.contact}
               className="block p-4 font-medium text-bone transition-colors hover:bg-bone hover:text-heavyMetal"
               onClick={() => setIsOpen(false)}
             >

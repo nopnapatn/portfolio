@@ -1,5 +1,7 @@
 import ArtworkCard from "@/app/(normal)/_components/artwork-card"
 import Container from "@/components/layout/container"
+import { siteConfig } from "@/config/site"
+import { paths } from "@/constants/paths"
 
 export default function Home() {
   return (
@@ -13,9 +15,28 @@ export default function Home() {
           title="Nopnapat"
           subtitle="Norasri"
           metadata="I'm a software engineer who loves to create digital experiences that inspire transformation."
-          href={""}
-          image="/images/neuw.jpg"
+          href={paths.contact}
+          image={siteConfig.links.image}
         />
+        <ArtworkCard
+          option={2}
+          color="bg-paleOyster"
+          className="relative sm:col-span-2 lg:col-span-2"
+          tag="Library"
+          title={siteConfig.bibliotheca.name}
+          subtitle=""
+          metadata={siteConfig.bibliotheca.description}
+          href={siteConfig.bibliotheca.href}
+          image="/images/library.jpg"
+        />
+        {/* <ArtworkCard
+          option={3}
+          color="bg-persianOrange"
+          tag=""
+          title=""
+          subtitle=""
+          metadata=""
+        /> */}
         <ArtworkCard
           option={4}
           color="bg-vanilla"

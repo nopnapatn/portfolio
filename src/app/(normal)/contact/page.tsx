@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { CardContent, CardHeader } from "@/components/ui/card"
+import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 
 export default function Page() {
@@ -29,7 +30,7 @@ export default function Page() {
             <CardHeader>
               <div className="flex items-center gap-x-3">
                 <Avatar className="size-16 rounded-lg">
-                  <AvatarImage src="https://github.com/nopnapatn.png" />
+                  <AvatarImage src={siteConfig.links.image} />
                   <AvatarFallback className="size-16 rounded-lg">
                     NN
                   </AvatarFallback>

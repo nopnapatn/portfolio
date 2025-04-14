@@ -10,5 +10,6 @@ export const palettes = {
   tobaccoBrown: "#755740",
   quincy: "#61462A",
   fiord: "#385464",
-  clayAsh: "#C4CCB4"
+  clayAsh: "#C4CCB4",
+  persianOrange: "#C48D6Fff"
 }
