@@ -6,12 +6,14 @@ import type React from "react"
 import { Sidebar } from "@/app/bibliotheca/_components/sidebar"
 import Footer from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger
 } from "@/components/ui/sheet"
+import { paths } from "@/constants/paths"
 
 export const metadata: Metadata = {
   title: "Bibliotheca",
@@ -44,8 +46,14 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
                 <Sidebar />
               </SheetContent>
             </Sheet>
-            <Link href="/" className="font-semibold">
+            <Link href={paths.bibliotheca} className="font-semibold">
               Bibliotheca
+            </Link>
+            <Separator orientation="vertical" className="mx-2 h-8" />
+            <Link href={paths.home}>
+              <span className="text-sm text-paleOyster hover:underline">
+                Back to Nopnapatn
+              </span>
             </Link>
           </div>
         </div>

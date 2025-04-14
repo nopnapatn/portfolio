@@ -19,9 +19,6 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        // FYI: This commented out line is an template from the original shadcn/tailwindcss-config
-        // background: "hsl(var(--background))",
-        // foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))"
@@ -71,7 +68,8 @@ const config: Config = {
         tobaccoBrown: "var(--tobacco-brown)",
         quincy: "var(--quincy)",
         fiord: "var(--fiord)",
-        clayAsh: "var(--clay-ash)"
+        clayAsh: "var(--clay-ash)",
+        persianOrange: "var(--persian-orange)"
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -80,12 +78,20 @@ const config: Config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" }
+          from: {
+            height: "0"
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)"
+          }
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" }
+          from: {
+            height: "var(--radix-accordion-content-height)"
+          },
+          to: {
+            height: "0"
+          }
         }
       },
       animation: {

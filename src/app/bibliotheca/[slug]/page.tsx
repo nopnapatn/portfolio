@@ -5,12 +5,26 @@ import { ArrowLeft } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound, useParams } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { Suspense, useEffect, useRef, useState } from "react"
 
 import { NotionContent } from "@/app/bibliotheca/_components/notion-content"
 import { paths } from "@/constants/paths"
 import { formatDate } from "@/lib/format-date"
 import { cn } from "@/lib/utils"
+
+const PostSkeleton = () => (
+  <div className="mx-auto max-w-4xl animate-pulse">
+    <div className="h-6 w-24 rounded bg-bone" />
+    <div className="mt-4 h-10 w-3/4 rounded bg-bone" />
+    <div className="mt-4 h-6 w-48 rounded bg-bone" />
+    <div className="mt-6 h-[300px] w-full rounded bg-bone" />
+    <div className="mt-8 space-y-4">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div key={i} className="h-4 w-full rounded bg-bone" />
+      ))}
+    </div>
+  </div>
+)
 
 interface BlogPost {
   id: string
@@ -23,35 +37,65 @@ interface BlogPost {
   content: string
 }
 
+const PostContent = ({ content }: { content: string }) => {
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  return (
+    <div ref={contentRef}>
+      <NotionContent content={content} headingLinkable={true} />
+    </div>
+  )
+}
+
 export default function BlogPostPage() {
   const params = useParams()
   const [post, setPost] = useState<BlogPost | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const contentRef = useRef<HTMLDivElement>(null)
+  const [contentVisible, setContentVisible] = useState(false)
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+
     const fetchPost = async () => {
       if (!params?.slug) {
-        notFound()
+        return notFound()
       }
 
       try {
         setIsLoading(true)
-        const response = await fetch(`/api/notion/${params.slug}`)
+        const response = await fetch(`/api/notion/${params.slug}`, {
+          signal,
+          headers: {
+            "Cache-Control": "max-age=3600"
+          }
+        })
+
         if (!response.ok) {
           throw new Error("Failed to fetch post")
         }
+
         const post = await response.json()
         setPost(post)
+
+        setTimeout(() => setContentVisible(true), 100)
       } catch (error) {
-        console.error("Error fetching post:", error)
-        notFound()
+        if (!signal.aborted) {
+          console.error("Error fetching post:", error)
+          notFound()
+        }
       } finally {
-        setIsLoading(false)
+        if (!signal.aborted) {
+          setIsLoading(false)
+        }
       }
     }
 
     fetchPost()
+
+    return () => {
+      controller.abort()
+    }
   }, [params])
 
   if (isLoading) {
@@ -61,23 +105,13 @@ export default function BlogPostPage() {
         animate={{ opacity: 1 }}
         className={cn("overflow-hidden")}
       >
-        <div className="mx-auto max-w-4xl animate-pulse">
-          <div className="h-6 w-24 rounded bg-bone" />
-          <div className="mt-4 h-10 w-3/4 rounded bg-bone" />
-          <div className="mt-4 h-6 w-48 rounded bg-bone" />
-          <div className="mt-6 h-[300px] w-full rounded bg-bone" />
-          <div className="mt-8 space-y-4">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="h-4 w-full rounded bg-bone" />
-            ))}
-          </div>
-        </div>
+        <PostSkeleton />
       </motion.div>
     )
   }
 
   if (!post) {
-    notFound()
+    return notFound()
   }
 
   return (
@@ -100,11 +134,13 @@ export default function BlogPostPage() {
         {post.coverImage && (
           <div className="relative mx-auto mb-8 h-[300px] max-w-4xl">
             <Image
-              src={post.coverImage || "/placeholder.svg"}
+              src={post.coverImage}
               alt={post.title}
               fill
               className="rounded-lg object-cover"
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="eager"
             />
           </div>
         )}
@@ -116,6 +152,7 @@ export default function BlogPostPage() {
               <time dateTime={post.date} className="text-sm">
                 {formatDate(post.date)}
               </time>
+
               {post.tags && post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
@@ -131,9 +168,14 @@ export default function BlogPostPage() {
             </div>
           </header>
 
-          <div ref={contentRef}>
-            <NotionContent content={post.content} headingLinkable={true} />
-          </div>
+          {/* Lazy load content with suspense */}
+          <Suspense
+            fallback={
+              <div className="bg-bone/20 h-96 w-full animate-pulse rounded-lg"></div>
+            }
+          >
+            {contentVisible && <PostContent content={post.content} />}
+          </Suspense>
         </div>
       </div>
     </motion.div>

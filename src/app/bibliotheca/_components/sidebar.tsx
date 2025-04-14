@@ -52,7 +52,6 @@ export function Sidebar({ className }: SidebarProps) {
         setPosts(posts)
         setFilteredPosts(posts)
 
-        // Extract all unique tags from posts
         const tags = Array.from(
           new Set(posts.flatMap((post: BlogPost) => post.tags || []))
         ).sort() as string[]
@@ -159,7 +158,7 @@ export function Sidebar({ className }: SidebarProps) {
                       "group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline",
                       pathname === `${paths.bibliotheca}/${post.slug}`
                         ? "bg-muted font-medium"
-                        : "text-muted-foreground transition-colors"
+                        : "text-paleOyster transition-colors"
                     )}
                   >
                     {post.title}
