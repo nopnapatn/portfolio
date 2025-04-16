@@ -44,6 +44,7 @@ export default function Home() {
           title="The"
           subtitle="Brownade"
           metadata="Step into Brownade's realm, digital experience that inspires transformation."
+          href={paths.maintenance}
         />
       </div>
     </Container>

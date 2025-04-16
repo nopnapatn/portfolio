@@ -148,7 +148,7 @@ export default function BlogPostPage() {
         <div className="mx-auto max-w-4xl">
           <header className="mb-8">
             <h1 className="mb-4 text-3xl font-bold">{post.title}</h1>
-            <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-4 text-bone">
               <time dateTime={post.date} className="text-sm">
                 {formatDate(post.date)}
               </time>
@@ -158,7 +158,7 @@ export default function BlogPostPage() {
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium"
+                      className="rounded-full bg-paleOyster px-2.5 py-0.5 text-xs font-medium text-heavyMetal"
                     >
                       {tag}
                     </span>
@@ -168,7 +168,6 @@ export default function BlogPostPage() {
             </div>
           </header>
 
-          {/* Lazy load content with suspense */}
           <Suspense
             fallback={
               <div className="bg-bone/20 h-96 w-full animate-pulse rounded-lg"></div>
