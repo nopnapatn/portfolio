@@ -87,33 +87,42 @@ function MobilePage() {
 
       <div className="w-full max-w-sm space-y-4">
         <Card className="rounded-xl border border-paleOyster bg-transparent p-4 transition-colors hover:border-bone">
-          <div className="flex items-center justify-between">
+          <Link
+            href="https://nopnapatn.dev/"
+            className="flex items-center justify-between"
+          >
             <span className="font-medium text-bone">nopnapatn</span>
             <Button variant="ghost" size="icon" className="size-8">
               <MoreHorizontal className="size-4" />
               <span className="sr-only">More options</span>
             </Button>
-          </div>
+          </Link>
         </Card>
 
         <Card className="rounded-xl border-birch bg-transparent p-4 transition-colors hover:border-bone">
-          <div className="flex items-center justify-between">
+          <Link
+            href="https://brownade.com/"
+            className="flex items-center justify-between"
+          >
             <span className="font-medium">Brownade</span>
             <Button variant="ghost" size="icon" className="size-8">
               <MoreHorizontal className="size-4" />
               <span className="sr-only">More options</span>
             </Button>
-          </div>
+          </Link>
         </Card>
 
         <Card className="rounded-xl border-birch bg-transparent p-4 transition-colors hover:border-bone">
-          <div className="flex items-center justify-between">
+          <Link
+            href="https://github.com/nopnapatn"
+            className="flex items-center justify-between"
+          >
             <span className="font-medium">Github</span>
             <Button variant="ghost" size="icon" className="size-8">
               <MoreHorizontal className="size-4" />
               <span className="sr-only">More options</span>
             </Button>
-          </div>
+          </Link>
         </Card>
       </div>
     </div>
