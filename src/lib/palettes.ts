@@ -11,5 +11,5 @@ export const palettes = {
   quincy: "#61462A",
   fiord: "#385464",
   clayAsh: "#C4CCB4",
-  persianOrange: "#C48D6Fff"
+  persianOrange: "#C48D6F"
 }

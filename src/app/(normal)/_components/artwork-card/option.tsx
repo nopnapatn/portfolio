@@ -40,7 +40,7 @@ export default function OptionArtWorkCard({
     return (
       image && (
         <div
-          className={`relative ${option === 1 ? "h-[460px]" : "h-48"} overflow-hidden rounded-lg`}
+          className={`relative ${option === 1 ? "h-[260px] sm:h-[460px]" : "h-48"} overflow-hidden rounded-lg`}
         >
           <Image src={image} alt={title} fill className="object-cover" />
         </div>

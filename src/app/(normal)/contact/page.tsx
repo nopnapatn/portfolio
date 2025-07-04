@@ -1,6 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Github, Instagram, Linkedin, Mail } from "lucide-react"
+import Link from "next/link"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { CardContent, CardHeader } from "@/components/ui/card"
@@ -18,6 +20,33 @@ export default function Page() {
     { category: "Collaboration", items: ["Notion", "Slack", "Atlassian"] }
   ]
 
+  const socialLinks = [
+    {
+      name: "GitHub",
+      icon: Github,
+      href: "https://github.com/nopnapatn",
+      color: "hover:text-bone hover:bg-bone-100/10"
+    },
+    {
+      name: "LinkedIn",
+      icon: Linkedin,
+      href: "https://linkedin.com/in/nopnapatn",
+      color: "hover:text-[#0077B5] hover:bg-blue-100/10"
+    },
+    {
+      name: "Instagram",
+      icon: Instagram,
+      href: "https://instagram.com/nopnapatn",
+      color: "hover:text-[#E1306C] hover:bg-pink-100/10"
+    },
+    {
+      name: "Email",
+      icon: Mail,
+      href: "mailto:contact@nopnapatn.com",
+      color: "hover:text-[#D44638] hover:bg-red-100/10"
+    }
+  ]
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -30,7 +59,9 @@ export default function Page() {
             <CardHeader>
               <div className="flex items-center gap-x-3">
                 <Avatar className="size-16 rounded-lg">
-                  <AvatarImage src={siteConfig.links.image} />
+                  <AvatarImage
+                    src={siteConfig.links.image || "/placeholder.svg"}
+                  />
                   <AvatarFallback className="size-16 rounded-lg">
                     NN
                   </AvatarFallback>
@@ -73,31 +104,59 @@ export default function Page() {
                   </span>
                 </p>
 
-                <br />
-                {skills.map((skillGroup, index) => (
-                  <dl key={index} className="flex flex-col gap-1 sm:flex-row">
-                    <dt className="min-w-40">
-                      <span className="block text-sm text-paleOyster">
-                        {skillGroup.category}:
-                      </span>
-                    </dt>
-                    <dd>
-                      <ul className="flex flex-wrap gap-1">
-                        {skillGroup.items.map((item, itemIndex) => (
-                          <li
-                            key={itemIndex}
-                            className="inline-flex items-center text-sm text-bone"
-                          >
-                            {item}
-                            {itemIndex < skillGroup.items.length - 1 && (
-                              <span className="mx-1">,</span>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </dd>
-                  </dl>
-                ))}
+                <div className="my-6 space-y-4">
+                  {skills.map((skillGroup, index) => (
+                    <dl key={index} className="flex flex-col gap-1 sm:flex-row">
+                      <dt className="min-w-40">
+                        <span className="block text-sm text-paleOyster">
+                          {skillGroup.category}:
+                        </span>
+                      </dt>
+                      <dd>
+                        <ul className="flex flex-wrap gap-1">
+                          {skillGroup.items.map((item, itemIndex) => (
+                            <li
+                              key={itemIndex}
+                              className="inline-flex items-center text-sm text-bone"
+                            >
+                              {item}
+                              {itemIndex < skillGroup.items.length - 1 && (
+                                <span className="mx-1">,</span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </dd>
+                    </dl>
+                  ))}
+                </div>
+
+                {/* Contact Section */}
+                <div className="mt-8">
+                  <div className="mb-3">
+                    <span className="text-sm text-paleOyster">Connect:</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {socialLinks.map((link) => (
+                      <Link
+                        key={link.name}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.name}
+                        className={cn(
+                          "border-paleOyster/20 group relative flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
+                          link.color
+                        )}
+                      >
+                        <link.icon className="size-4 text-paleOyster transition-colors group-hover:text-inherit" />
+                        <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-background px-2 py-1 text-xs opacity-0 shadow-md transition-opacity group-hover:opacity-100">
+                          {link.name}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </div>
             </CardContent>
           </div>
